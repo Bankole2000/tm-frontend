@@ -1,6 +1,7 @@
 import axios from 'axios';
+import config from '../utils/config'
 
-const endpoint = "http://localhost:4000/api/v1";
+const endpoint = `${config.baseUrl}/api/v1`;
 
 export default {
   login: (email, password) => {

@@ -13,6 +13,8 @@
     "axios": "^1.4.0",
     "core-js": "^3.6.5",
     "roboto-fontface": "*",
+    "socket.io": "^4.7.1",
+    "socket.io-client": "^4.7.1",
     "v-snackbars": "^3.2.8",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
