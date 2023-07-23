@@ -10,10 +10,13 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "axios": "^1.4.0",
     "core-js": "^3.6.5",
     "roboto-fontface": "*",
+    "v-snackbars": "^3.2.8",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
+    "vue-socket.io": "^3.0.10",
     "vuetify": "^2.6.0",
     "vuex": "^3.4.0"
   },
