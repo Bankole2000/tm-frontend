@@ -7,8 +7,8 @@ export default {
   login: (email, password) => {
     return axios.post(`${endpoint}/login`, { email, password });
   },
-  addSongRequest: (title, artist, requestedBy) => {
-    return axios.post(`${endpoint}/login`, { title, artist, requestedBy});
+  addSongRequest: ({title, artist, requestedBy}) => {
+    return axios.post(`${endpoint}/requests`, { title, artist, requestedBy});
   },
   getSongRequests: (page, limit, playedStatus = 'all') => {
     let query = '';

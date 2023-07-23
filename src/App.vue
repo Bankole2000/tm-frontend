@@ -24,12 +24,15 @@
     <v-main>
       <router-view/>
     </v-main>
+    <Snackbar />
   </v-app>
 </template>
 
 <script>
+import Snackbar from './components/shared/Snackbar.vue';
 
 export default {
+  components: { Snackbar },
   name: 'App',
 
   data: () => ({

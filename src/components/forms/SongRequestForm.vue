@@ -4,9 +4,15 @@
     <v-row>
       <v-col cols="12">
 
-    <v-text-field label="Song Title" v-model="title" placeholder="e.g 'We are the world' or 'Genie in a bottle'" solo rounded outlined prepend-inner-icon="mdi-music"></v-text-field>
-    <v-text-field label="Song Artist" v-model="artist" solo rounded outlined placeholder="e.g. 'Micheal Jackson' or 'Christina Aguilera'" prepend-inner-icon="mdi-microphone-variant"></v-text-field>
-    <v-text-field label="Requested By (optional)" v-model="requestedBy" placeholder="Your Name" solo rounded outlined prepend-inner-icon="mdi-account"></v-text-field>
+    <v-text-field label="Song Title" hint="If you don't know the song title, just use a popular phrase from it" type="text" v-model="title" placeholder="e.g 'We are the world' or 'Any song by Elton John'" solo rounded outlined prepend-inner-icon="mdi-music"></v-text-field>
+    <v-text-field @keyup.enter="requestSong" hint="If you don't know the Artists' name, just enter 'Anonymous'" type="text" label="Song Artist" v-model="artist" solo rounded outlined placeholder="e.g. 'Micheal Jackson' or 'Christina Aguilera'" prepend-inner-icon="mdi-microphone-variant"></v-text-field>
+    <v-text-field @keyup.enter="requestSong" label="Requested By (optional)" v-model="requestedBy" placeholder="Your Name (optional)" solo rounded outlined prepend-inner-icon="mdi-account"></v-text-field>
+     <v-expand-transition>
+      
+    <v-alert v-show="message.show" outlined :type="message.type || 'info'" text>
+      {{ message.message}}
+    </v-alert>
+     </v-expand-transition>
     <v-btn rounded @click="requestSong" x-large block color="secondary" :loading="loading">Request Song
       <!-- <v-icon right>mdi-music-box-multiple-outline</v-icon> -->
       <v-icon right>mdi-piano</v-icon>
@@ -18,26 +24,83 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+import API from '@/api';
 export default {
   data() {
     return {
       title: "",
       artist: "",
       requestedBy: "",
-      loading: false
+      loading: false,
+      message: {
+        show: false,
+        message: "",
+        type: "",
+      }
     }
   },
   methods: {
-    requestSong(){
-      console.log({
-        title: this.title,
-        artist: this.artist,
-        requestedBy: this.requestedBy
-      });
+    ...mapActions({
+      showToast: "ui/showToast"
+    }),
+    async requestSong(){
+      if (this.loading) {
+        return;
+      }
+      this.loading = true
+      if(!this.title.trim()){
+        this.showToast({ show: true, message: "Please add Song Title", sclass: 'error', timeout: 2000})
+        this.loading = false;
+        return;
+      }
+      if(!this.artist.trim()){
+        this.showToast({ show: true, message: "Please add the Song Artist's name", sclass: 'error', timeout: 2000})
+        this.loading = false;
+        return;
+      }
+      const songRequest = {
+        title: this.title.trim(),
+        artist: this.artist.trim(),
+        requestedBy: this.requestedBy.trim() || 'Anonymous'
+      }
+      console.log({ songRequest })
+      try {
+        const result = await API.addSongRequest(songRequest);
+        console.log({result})
+        if (result.data.success){
+          this.showToast({ show: true, message: 'Song request sent', timeout: 3000, sclass: 'success'})
+          this.showMessage('Your song request has been received! Thank you 😊', 'success', 5000);
+          this.title = ""
+          this.artist = ""
+          this.requestedBy = ""
+        }
+      } catch (error) {
+        this.showToast({ show: true, message: 'An error occurred', timeout: 3000, sclass: 'error'})
+        this.showMessage("Looks like something went wrong - please try again", 'error', 3000)
+        console.log({ error })
+      } finally {
+        this.loading = false;
+      }
+      this.$emit('requestSong', songRequest)
+    },
+    showMessage(message, type, timeout = 5000) {
+      this.message = {
+        show: true,
+        message,
+        type,
+      }
+      setTimeout(() => {
+        this.message = {
+          show: false,
+          message: '',
+          type: '',
+        }
+      }, timeout)
     }
   },
   mounted(){
-
+    
   }
 }
 </script>
