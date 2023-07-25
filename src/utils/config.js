@@ -1,3 +1,3 @@
 export default {
-  baseUrl: "http://localhost:4000"
+  baseUrl: "https://timikeys.up.railway.app"
 }
