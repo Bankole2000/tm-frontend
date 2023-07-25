@@ -16,9 +16,8 @@
                   <h1 class="display-2 font-weight-thin mb-16 text-center px-4">
                     Let's play your favorite songs
                   </h1>
-                  <div>
-                    <p class="caption mb-2">Recently played</p>
-                    <v-divider></v-divider>
+                  <div class="mt-n8">
+                    <RecentlyPlayedDesktop />
                   </div>
                 </v-col>
               </v-row>
@@ -47,7 +46,7 @@
           <p class="mb-2 text-center mt-n4" v-if="$vuetify.breakpoint.smAndDown">👋 Hi there! Let's play your favorite songs</p>
           <div class="px-6">
             <SongRequestForm @requestSong="requestSong" />
-            <RecentlyPlayedMobile />
+            <RecentlyPlayedMobile v-if="$vuetify.breakpoint.smAndDown" />
           </div>
         </v-card>
       </v-col>
@@ -58,6 +57,7 @@
 <script>
 import SongRequestForm from "../components/forms/SongRequestForm.vue";
 import RecentlyPlayedMobile from '../components/RecentlyPlayedMobile.vue';
+import RecentlyPlayedDesktop from '../components/RecentlyPlayedDesktop.vue';
 // @ is an alias to /src
 
 export default {
@@ -65,6 +65,7 @@ export default {
   components: {
     SongRequestForm,
     RecentlyPlayedMobile,
+    RecentlyPlayedDesktop
   },
   // sockets: {
   //   SONG_REQUEST_ADDED(data) {
@@ -87,3 +88,9 @@ export default {
   }
 };
 </script>
+<style>
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+</style>
