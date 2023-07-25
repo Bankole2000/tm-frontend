@@ -4,8 +4,8 @@
     <v-row>
       <v-col cols="12">
 
-    <v-text-field label="Song Title" hint="If you don't know the song title, just use a popular phrase from it" type="text" v-model="title" placeholder="e.g 'We are the world' or 'Any song by Elton John'" solo rounded outlined prepend-inner-icon="mdi-music"></v-text-field>
-    <v-text-field @keyup.enter="requestSong" hint="If you don't know the Artists' name, just enter 'Anonymous'" type="text" label="Song Artist" v-model="artist" solo rounded outlined placeholder="e.g. 'Micheal Jackson' or 'Christina Aguilera'" prepend-inner-icon="mdi-microphone-variant"></v-text-field>
+    <v-text-field @keyup.enter="requestSong" label="Song Title" hint="If you don't know the song title, just use a popular phrase from it" type="text" v-model="title" placeholder="e.g 'We are the world' or 'any song by Elton John'" solo rounded outlined prepend-inner-icon="mdi-music"></v-text-field>
+    <v-text-field @keyup.enter="requestSong" hint="If you don't know the Artists' name, just enter 'Anonymous' or 'Unknown'" type="text" label="Song Artist (Optional)" v-model="artist" solo rounded outlined placeholder="e.g. 'Micheal Jackson' or 'Christina Aguilera' or 'Unknown'" prepend-inner-icon="mdi-microphone-variant"></v-text-field>
     <v-text-field @keyup.enter="requestSong" label="Requested By (optional)" v-model="requestedBy" placeholder="Your Name (optional)" solo rounded outlined prepend-inner-icon="mdi-account"></v-text-field>
      <v-expand-transition>
       
@@ -54,20 +54,18 @@ export default {
         this.loading = false;
         return;
       }
-      if(!this.artist.trim()){
-        this.showToast({ show: true, message: "Please add the Song Artist's name", sclass: 'error', timeout: 2000})
-        this.loading = false;
-        return;
-      }
+      // if(!this.artist.trim()){
+      //   this.showToast({ show: true, message: "Please add the Song Artist's name", sclass: 'error', timeout: 2000})
+      //   this.loading = false;
+      //   return;
+      // }
       const songRequest = {
         title: this.title.trim(),
-        artist: this.artist.trim(),
+        artist: this.artist.trim() || 'Unknown',
         requestedBy: this.requestedBy.trim() || 'Anonymous'
       }
-      console.log({ songRequest })
       try {
         const result = await API.addSongRequest(songRequest);
-        console.log({result})
         if (result.data.success){
           this.showToast({ show: true, message: 'Song request sent', timeout: 3000, sclass: 'success'})
           this.showMessage('Your song request has been received! Thank you 😊', 'success', 5000);

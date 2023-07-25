@@ -44,7 +44,6 @@ export default {
   updated() {
     const { timeout, show } = this.toast;
     if (show) {
-      // console.log({ toast: this.toast });
       setTimeout(() => {
         this.showToast({ show: false });
       }, timeout);

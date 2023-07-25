@@ -44,6 +44,7 @@
             </v-avatar>
             <h1 class="mx-4">Timi Keys</h1>
           </div>
+          <p class="mb-2 text-center mt-n4" v-if="$vuetify.breakpoint.smAndDown">👋 Hi there! Let's play your favorite songs</p>
           <div class="px-6">
             <SongRequestForm @requestSong="requestSong" />
             <RecentlyPlayedMobile />
@@ -65,20 +66,20 @@ export default {
     SongRequestForm,
     RecentlyPlayedMobile,
   },
-  sockets: {
-    SONG_REQUEST_ADDED(data) {
-      console.log({ data, event: 'SONG_REQUEST_ADDED' });
-    },
-    SONG_REQUEST_PLAYED(data) {
-      console.log({ data, event: 'SONG_REQUEST_PLAYED' });
-    },
-    SONG_REQUEST_UNPLAYED(data) {
-      console.log({ data, event: 'SONG_REQUEST_UNPLAYED' });
-    },
-    SONG_REQUEST_DELETED(data) {
-      console.log({ data, event: 'SONG_REQUEST_DELETED' });
-    }
-  },
+  // sockets: {
+  //   SONG_REQUEST_ADDED(data) {
+  //     console.log({ data, event: 'SONG_REQUEST_ADDED' });
+  //   },
+  //   SONG_REQUEST_PLAYED(data) {
+  //     console.log({ data, event: 'SONG_REQUEST_PLAYED' });
+  //   },
+  //   SONG_REQUEST_UNPLAYED(data) {
+  //     console.log({ data, event: 'SONG_REQUEST_UNPLAYED' });
+  //   },
+  //   SONG_REQUEST_DELETED(data) {
+  //     console.log({ data, event: 'SONG_REQUEST_DELETED' });
+  //   }
+  // },
   methods: {
     requestSong(e){
       console.log({e, event: 'requestSong'})

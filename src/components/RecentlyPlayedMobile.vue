@@ -41,18 +41,12 @@ export default {
   },
   sockets: {
     SONG_REQUEST_PLAYED(data) {
-      console.log({ data, event: "SONG_REQUEST_PLAYED" });
       this.songRequests.unshift(data);
       if (this.songRequests.length > 5) {
         this.songRequests.pop();
       }
     },
-    async SONG_REQUEST_UNPLAYED(data) {
-      console.log({ data, event: 'SONG_REQUEST_UNPLAYED' });
-      // const index = this.songRequests.findIndex(r => r.id === data.id);
-      // if(index > -1){
-      //   this.songRequests.splice(index, 1);
-      // }
+    async SONG_REQUEST_UNPLAYED() {
       await this.getRecentlyPlayed()
     },
   },
@@ -64,7 +58,6 @@ export default {
         } = await API.getSongRequests(1, 5, "played");
         const { data: songRequests } = data;
         this.songRequests = songRequests;
-        console.log({ songRequests });
       } catch (error) {
         console.log({ error });
       }

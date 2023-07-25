@@ -2,7 +2,6 @@ export default {
   toggleSideBar(context, { show }) {
     return new Promise(resolve => {
       context.commit('toggleSideBar', show);
-      // console.log({ show });
       resolve();
     })
   },

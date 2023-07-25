@@ -34,6 +34,9 @@
           </div>
         </v-flex>
       </v-layout>
+      <v-overlay absolute :value="loading">
+        <v-progress-circular indeterminate size="32"></v-progress-circular>
+      </v-overlay>
     </v-card>
 </template>
 <script>
@@ -50,6 +53,11 @@ export default {
         requestedAt: '2023-07-23T05:14:49.194Z',
         hasBeenPlayed: false,
       })
+    }
+  },
+  data(){
+    return {
+      loading: false
     }
   },
   computed: {
@@ -76,14 +84,16 @@ export default {
       return formatter.format(new Date(dateTime));
     },
     async statusChanged(e){
-      console.log({e});
+      if(this.loading) return;
+      this.loading = true;
       try {
-        const result = await API.togglePlayedStatus(this.request.id, e)
-        console.log({ result });
+        const { data: { data } } = await API.togglePlayedStatus(this.request.id, e)
+        this.$emit('togglePlayedStatus', { id: data.id, status: data.hasBeenPlayed});
       } catch (error) {
         console.log({ error })
+      } finally {
+        this.loading = false;
       }
-      this.$emit('togglePlayedStatus', { id: this.request.id, status: e});
     }
   }
 }
