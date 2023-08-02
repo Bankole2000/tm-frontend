@@ -7,7 +7,7 @@ npm run build
 cd dist
 # echo nodensinc.com >> CNAME
 # if you are deploying to a custom domain
-# echo 'www.example.com' > CNAME
+echo timikeys.live > CNAME
 git init
 git config user.email "techybanky@gmail.com"
 git config user.name "Bankole Esan"
