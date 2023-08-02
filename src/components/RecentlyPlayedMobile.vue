@@ -6,14 +6,14 @@
       <v-col cols="12">
         <p class="caption mb-0">Recently Played</p>
         <v-divider class="my-2"></v-divider>
-        <div style="max-height: 150px; overflow-y: scroll" class="pr-4">
-          <v-slide-y-transition class="py-0" group tag="v-list">
+        <div style="max-height: 150px; overflow-y: scroll; background:transparent" class="pr-4">
+          <v-slide-y-transition class="py-0" style="background: transparent;" group tag="v-list">
             <v-alert
               v-for="r in songRequests"
               :key="r.id"
               class="my-1"
               dense
-              color="cyan"
+              color="primary lighten-3"
               border="left"
               elevation="2"
               colored-border
@@ -49,6 +49,15 @@ export default {
     async SONG_REQUEST_UNPLAYED() {
       await this.getRecentlyPlayed()
     },
+    async SONG_REQUEST_DELETED() {
+      await this.getRecentlyPlayed()
+    },
+    async SONG_REQUEST_UPDATED(data) {
+      const index = this.songRequests.findIndex(r => r.id === data.id);
+      if(index > -1){
+        this.songRequests.splice(index, 1, data);
+      }
+    }
   },
   methods: {
     async getRecentlyPlayed() {

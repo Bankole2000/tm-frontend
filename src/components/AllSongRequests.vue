@@ -166,6 +166,15 @@ export default {
         this.songRequests[index].hasBeenPlayed = data.hasBeenPlayed;
       }
     },
+    SONG_REQUEST_UPDATED(data){
+      const index = this.songRequests.findIndex(r => r.id === data.id);
+      if(index > -1){
+        this.songRequests.splice(index, 1, data);
+      }
+    },
+    async SONG_REQUEST_DELETED(){
+      await this.getSongRequests();
+    },
     SONG_REQUEST_UNPLAYED(data) {
       const index = this.songRequests.findIndex(r => r.id === data.id);
       if(index > -1){

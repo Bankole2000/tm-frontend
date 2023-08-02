@@ -13,7 +13,7 @@
               :key="r.id"
               class="my-1"
               dense
-              color="cyan"
+              color="primary lighten-3"
               border="left"
               elevation="2"
               colored-border
@@ -49,6 +49,15 @@ export default {
     async SONG_REQUEST_UNPLAYED() {
       await this.getRecentlyPlayed()
     },
+    async SONG_REQUEST_DELETED() {
+      await this.getRecentlyPlayed()
+    },
+    async SONG_REQUEST_UPDATED(data) {
+      const index = this.songRequests.findIndex(r => r.id === data.id);
+      if(index > -1){
+        this.songRequests.splice(index, 1, data);
+      }
+    }
   },
   methods: {
     async getRecentlyPlayed() {

@@ -14,7 +14,7 @@
               <v-divider class="my-3"></v-divider>
               <v-text-field prepend-inner-icon="mdi-account" :readonly="loading" label="Admin Email" placeholder="Admin Email" rounded solo outlined v-model="email"></v-text-field>
               <v-text-field prepend-inner-icon="mdi-lock" :readonly="loading" @keyup.enter="login" placeholder="Admin Password" rounded solo outlined :type="showPassword ? 'text': 'password'" @click:append="showPassword = !showPassword" :append-icon="showPassword ? 'mdi-eye': 'mdi-eye-off'" label="Admin Password" v-model="password"></v-text-field>
-              <v-btn x-large rounded color="secondary" block @click="login" :loading="loading" :disabled="loading">Login <v-icon right>mdi-send</v-icon></v-btn>
+              <v-btn x-large rounded color="primary" block @click="login" :loading="loading" :disabled="loading">Login <v-icon right>mdi-send</v-icon></v-btn>
             </v-col>
           </v-row>
         </v-container>

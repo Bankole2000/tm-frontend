@@ -7,12 +7,12 @@
             align-items: center;
             justify-content: center;
           " gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)" dark tile>
-          <v-img :src="require('@/assets/img/homebanner.jpeg')" height="100vh"
+          <v-img :src="require('@/assets/img/timikeys1.jpg')" height="100vh"
             gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)">
             <div class="d-flex align-center flex-column" style="height: 100vh">
               <v-row justify="center" align="center">
                 <v-col>
-                  <h1 class="display-4 font-weight-bold mb-4 text-center">Timi Keys</h1>
+                  <h1 class="display-4 font-weight-bold mb-4 text-center">TimiKeys</h1>
                   <h1 class="display-2 font-weight-thin mb-16 text-center px-4">
                     Let's play your favorite songs
                   </h1>
@@ -26,22 +26,26 @@
         </v-card>
       </v-col>
       <v-col cols="12" md="5" class="pa-0 ma-0">
+        <!-- background: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0) 59%, rgba(0, 0, 0, 0.65) 100%), url('https://cdn.sstatic.net/Sites/stackoverflow/company/img/logos/so/so-icon.png?v=c78bd457575a') no-repeat; -->
         <v-card style="
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-          " class="ma-0 pa-0" elevation="0" tile>
+          "
+          :style="{background: $vuetify.breakpoint.smAndDown ? `linear-gradient(to top, rgba(255, 255, 255, 255) 0%, rgba(255, 255, 255, 0.5) 59%, rgba(255, 255, 255, 0.65) 100%), url('${require('@/assets/img/timikeys1.jpg')}') no-repeat center left`: 'none'}"
+          class="ma-0 pa-0" elevation="0" tile>
           <div style="
               display: flex;
               align-items: center;
               justify-content: center;
               cursor: pointer;
             " class="mb-8" @click="$router.push({ name: 'pages.home' })">
-            <v-avatar tile color="grey darken-4">
-              <v-icon x-large dark>mdi-piano</v-icon>
+            <v-avatar tile color="transparent" size="54">
+              <v-img contain :src="require('@/assets/img/logo.png')"></v-img>
+              <!-- <v-icon x-large dark>mdi-piano</v-icon> -->
             </v-avatar>
-            <h1 class="mx-4">Timi Keys</h1>
+            <h1 class="mx-4">TimiKeys</h1>
           </div>
           <p class="mb-2 text-center mt-n4" v-if="$vuetify.breakpoint.smAndDown">👋 Hi there! Let's play your favorite songs</p>
           <div class="px-6">

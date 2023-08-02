@@ -128,6 +128,15 @@ export default {
         this.pages = Math.ceil(this.total / this.limit);
       }
     },
+    SONG_REQUEST_UPDATED(data){
+      const index = this.songRequests.findIndex(r => r.id === data.id);
+      if(index > -1){
+        this.songRequests.splice(index, 1, data);
+      }
+    },
+    async SONG_REQUEST_DELETED(){
+      await this.getPendingSongRequests(this.currentPage, this.limit);
+    }
   },
   async mounted() {
     await this.getPendingSongRequests();

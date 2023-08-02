@@ -27,6 +27,9 @@ export default {
   togglePlayedStatus: (requestId, hasBeenPlayed = true) => {
     return axios.put(`${endpoint}/requests/${requestId}`, { hasBeenPlayed });
   },
+  updateSongRequest: (requestId, data) => {
+    return axios.patch(`${endpoint}/requests/${requestId}`, data);
+  },
   deleteSongRequest: (requestId) => {
     return axios.delete(`${endpoint}/requests/${requestId}`);
   },
