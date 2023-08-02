@@ -10,7 +10,7 @@
           </div>
           <v-divider class="my-4"></v-divider>
           <p class="subtitle-1 mb-0">Latest Song Requests</p>
-          <PendingSongRequests />
+          <PendingSongRequests :isLoggedIn="isLoggedIn" />
           <v-divider class="my-8"></v-divider>
           <AllSongRequests />
         </v-col>

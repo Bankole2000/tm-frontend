@@ -68,7 +68,7 @@ export default {
         const result = await API.addSongRequest(songRequest);
         if (result.data.success){
           this.showToast({ show: true, message: 'Song request sent', timeout: 3000, sclass: 'success'})
-          this.showMessage('Your song request has been received! Thank you 😊', 'success', 5000);
+          this.showMessage('Listen closely 🎶', 'success', 5000);
           this.title = ""
           this.artist = ""
           this.requestedBy = ""

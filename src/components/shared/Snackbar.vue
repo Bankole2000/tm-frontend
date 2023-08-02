@@ -8,7 +8,7 @@
   >
     <!-- :centered="$vuetify.breakpoint.smAndDown" -->
     <span :class="`${toast.sclass}--text text-capitalize font-weight-bold`"
-      >{{ toast.sclass }}: &nbsp;</span
+      >{{ toast.sclass === 'warning' ? 'Alert' : toast.sclass }}: &nbsp;</span
     >
     <span v-html="toast.message"></span>
 

@@ -12,7 +12,7 @@
             <div class="d-flex align-center flex-column" style="height: 100vh">
               <v-row justify="center" align="center">
                 <v-col>
-                  <h1 class="display-4 font-weight-bold mb-4 text-center">TimiKeys</h1>
+                  <h1 class="display-4 font-weight-bold mb-4 text-center">&nbsp;</h1>
                   <h1 class="display-2 font-weight-thin mb-16 text-center px-4">
                     Let's play your favorite songs
                   </h1>
@@ -45,9 +45,9 @@
               <v-img contain :src="require('@/assets/img/logo.png')"></v-img>
               <!-- <v-icon x-large dark>mdi-piano</v-icon> -->
             </v-avatar>
-            <h1 class="mx-4">TimiKeys</h1>
+            <h1 class="mx-4 display-1 font-weight-bold font-italic">TimiKeys</h1>
           </div>
-          <p class="mb-2 text-center mt-n4" v-if="$vuetify.breakpoint.smAndDown">👋 Hi there! Let's play your favorite songs</p>
+          <p class="mb-2 text-center headline mt-n4" v-if="$vuetify.breakpoint.smAndDown">💿 You're the <strong>DJ</strong>! <br /> Request your favorite songs <i>live</i> 🎹</p>
           <div class="px-6">
             <SongRequestForm @requestSong="requestSong" />
             <RecentlyPlayedMobile v-if="$vuetify.breakpoint.smAndDown" />

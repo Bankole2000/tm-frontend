@@ -49,6 +49,12 @@ import { mapActions } from 'vuex';
 import SongRequestItem from './common/SongRequestItem.vue'
 export default {
   components: { SongRequestItem },
+  props: {
+    isLoggedIn: {
+      type: Boolean, 
+      default: false,
+    }
+  },
   data() {
     return {
       songRequests: [],
@@ -114,6 +120,9 @@ export default {
       if (this.songRequests.length > this.limit) {
         this.songRequests.pop();
         this.pages = Math.ceil(this.total / this.limit);
+      }
+      if(this.isLoggedIn){
+        this.showToast({show: true, message: 'New Song Request', timeout: 3000, sclass: 'warning'})
       }
     },
     async SONG_REQUEST_PLAYED(data) {
