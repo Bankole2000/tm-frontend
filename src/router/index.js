@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Search from '../views/Search.vue'
 
 Vue.use(VueRouter)
 
@@ -9,6 +10,11 @@ const routes = [
     path: '/',
     name: 'pages.home',
     component: Home
+  },
+  {
+    path: '/search',
+    name: 'pages.search',
+    component: Search,
   },
   {
     path: '/admin',
