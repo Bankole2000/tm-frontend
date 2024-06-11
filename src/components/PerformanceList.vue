@@ -12,7 +12,7 @@
               <v-list-item-subtitle class="text-capitalize">{{p.artistName}}</v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
-              <v-btn @click="openLink(p.videoURL)" fab color="error" x-small>
+              <v-btn @click="openLink(p.tiktokVideoLink)" fab color="error" x-small>
                 <v-icon>mdi-play</v-icon>
               </v-btn>
             </v-list-item-action>
