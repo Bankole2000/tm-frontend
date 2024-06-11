@@ -153,7 +153,7 @@ export default {
       try {
         const {data: {data}} = await API.getGenres()
         console.log({data})
-        this.genres = data.genres
+        this.genres = data
       } catch (error) {
         console.log({ error })
       } finally {
@@ -220,7 +220,7 @@ export default {
   computed: {
     filteredGenres(){
       if(!this.genreFilter) return this.genres;
-      return this.genres.filter(g => g.mainGenre.includes(this.genreFilter));
+      return this.genres.filter(g => g.genre.toLowerCase().includes(this.genreFilter.toLowerCase()) || g.genreName.toLowerCase().includes(this.genreFilter.toLowerCase()));
     }
   },
   async mounted(){

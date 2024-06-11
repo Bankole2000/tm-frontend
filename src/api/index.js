@@ -39,7 +39,7 @@ export default {
   searchPerformances: (page, limit, searchTerm, genre) => {
     let query = '', search = '';
     if (genre){
-      query+=`&mainGenre=${genre}`
+      query+=`&genres=${genre}`
     }
     if(searchTerm){
       search+=`&q=${searchTerm}`

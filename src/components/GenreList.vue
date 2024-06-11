@@ -2,13 +2,13 @@
   <div>
     <v-list-item-group dense v-model="selected" multiple active-class="">
       <v-slide-y-transition group tag="v-list">
-        <v-list-item v-for="g in genres" :key="g.mainGenre" :value="g.mainGenre">
+        <v-list-item v-for="g in genres" :key="g.genre" :value="g.genre">
           <template v-slot:default="{ active }">
             <v-list-item-action>
               <v-checkbox class="mr-0" :input-value="active"></v-checkbox>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title class="text-capitalize">{{g.mainGenre}} <span class="grey--text text--lighten-1">({{g._count.mainGenre}} songs)</span></v-list-item-title>
+              <v-list-item-title class="text-capitalize">{{g.genreName}} <span class="grey--text text--lighten-1">({{g._count.SongGenres}} songs)</span></v-list-item-title>
               <!-- <v-list-item-subtitle
                 >({{g._count.mainGenre}} Songs)</v-list-item-subtitle
               > -->
