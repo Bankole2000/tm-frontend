@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Search from '../views/Search.vue'
-
+import AddSongForm from '../components/forms/AddSongForm'
 Vue.use(VueRouter)
 
 const routes = [
@@ -15,6 +15,11 @@ const routes = [
     path: '/search',
     name: 'pages.search',
     component: Search,
+  },
+  {
+    path: '/add',
+    name: 'pages.add',
+    components: AddSongForm
   },
   {
     path: '/admin',
