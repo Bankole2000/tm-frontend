@@ -4,15 +4,18 @@
     <v-row>
       <v-col cols="12">
 
-    <v-text-field @keyup.enter="requestSong" label="Song Title" hint="If you don't know the song title, just use a popular phrase from it" type="text" v-model="title" placeholder="e.g 'We are the world' or 'any song by Hans Zimmer'" solo rounded outlined prepend-inner-icon="mdi-music"></v-text-field>
-    <v-text-field @keyup.enter="requestSong" hint="If you don't know the Artists' name, just enter 'Anonymous' or 'Unknown'" type="text" label="Song Artist (Optional)" v-model="artist" solo rounded outlined placeholder="e.g. 'Micheal Jackson' or 'Frank Ocean' or 'Unknown'" prepend-inner-icon="mdi-microphone-variant"></v-text-field>
-    <v-text-field @keyup.enter="requestSong" label="Requested By (optional)" v-model="requestedBy" placeholder="Your Name (optional)" solo rounded outlined prepend-inner-icon="mdi-account"></v-text-field>
+    <v-text-field @keyup.enter="requestSong" :disabled="isCooldown" label="Song Title" hint="If you don't know the song title, just use a popular phrase from it" type="text" v-model="title" placeholder="e.g 'We are the world' or 'any song by Hans Zimmer'" solo rounded outlined prepend-inner-icon="mdi-music"></v-text-field>
+    <v-text-field @keyup.enter="requestSong" :disabled="isCooldown" hint="If you don't know the Artists' name, just enter 'Anonymous' or 'Unknown'" type="text" label="Song Artist (Optional)" v-model="artist" solo rounded outlined placeholder="e.g. 'Micheal Jackson' or 'Frank Ocean' or 'Unknown'" prepend-inner-icon="mdi-microphone-variant"></v-text-field>
+    <v-text-field @keyup.enter="requestSong" :disabled="isCooldown" label="Requested By (optional)" v-model="requestedBy" placeholder="Your Name (optional)" solo rounded outlined prepend-inner-icon="mdi-account"></v-text-field>
      <v-expand-transition>
       
     <v-alert v-show="message.show" outlined :type="message.type || 'info'" text>
       {{ message.message}}
     </v-alert>
      </v-expand-transition>
+     <v-alert v-if="isCooldown" class="cooldown-popup" type="info" text>
+      Heyy, chill for  {{ cooldownTimeLeft }} seconds before the next.
+     </v-alert>
     <v-btn rounded @click="requestSong" x-large block color="primary" :loading="loading">Request Song
       <!-- <v-icon right>mdi-music-box-multiple-outline</v-icon> -->
       <v-icon right>mdi-piano</v-icon>
@@ -37,15 +40,32 @@ export default {
         show: false,
         message: "",
         type: "",
-      }
+      }, 
+      lastRequestTime: null, // Stores the timestamp of the last request
+      cooldownPeriod: 60, // Cooldown period in seconds
+      cooldownTimeLeft: 0, // Time left in cooldown
+      cooldownInterval: null, // Interval for countdown
     }
   },
+  computed: {
+    isCooldown() {
+      if (!this.lastRequestTime) return false;
+      const elapsedTime = Math.floor(
+        (Date.now() - this.lastRequestTime) / 1000
+      );
+      return elapsedTime < this.cooldownPeriod;
+    },
+  }, 
   methods: {
     ...mapActions({
       showToast: "ui/showToast"
     }),
     async requestSong(){
       if (this.loading) {
+        return;
+      }
+      if (this.isCooldown) {
+        this.startCooldownTimer();
         return;
       }
       this.loading = true
@@ -72,6 +92,8 @@ export default {
           this.title = ""
           this.artist = ""
           this.requestedBy = ""
+          this.lastRequestTime = Date.now();
+          this.startCooldownTimer();
         }
       } catch (error) {
         this.showToast({ show: true, message: 'An error occurred', timeout: 3000, sclass: 'error'})
@@ -95,11 +117,31 @@ export default {
           type: '',
         }
       }, timeout)
-    }
+    },
+    startCooldownTimer() {
+      this.cooldownTimeLeft = this.cooldownPeriod;
+      if (this.cooldownInterval) clearInterval(this.cooldownInterval);
+
+      this.cooldownInterval = setInterval(() => {
+        const elapsedTime = Math.floor(
+          (Date.now() - this.lastRequestTime) / 1000
+        );
+        this.cooldownTimeLeft = Math.max(
+          this.cooldownPeriod - elapsedTime,
+          0
+        );
+        if (this.cooldownTimeLeft <= 0) {
+          clearInterval(this.cooldownInterval); 
+          this.lastRequestTime = null;
+        }
+      }, 1000);
+    },
   },
   mounted(){
-    
-  }
+  },
+   beforeDestroy() {
+    if (this.cooldownInterval) clearInterval(this.cooldownInterval);
+  },
 }
 </script>
 
