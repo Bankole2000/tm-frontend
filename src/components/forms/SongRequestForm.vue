@@ -14,7 +14,7 @@
     </v-alert>
      </v-expand-transition>
      <v-alert v-if="isCooldown" class="cooldown-popup" type="info" text>
-      Heyy, chill for  {{ cooldownTimeLeft }} seconds before the next.
+      Heyy, chill for  {{ cooldownTimeLeft }} seconds before next song.
      </v-alert>
     <v-btn rounded @click="requestSong" x-large block color="primary" :loading="loading">Request Song
       <!-- <v-icon right>mdi-music-box-multiple-outline</v-icon> -->
@@ -42,7 +42,7 @@ export default {
         type: "",
       }, 
       lastRequestTime: null, // Stores the timestamp of the last request
-      cooldownPeriod: 60, // Cooldown period in seconds
+      cooldownPeriod: 45, // Cooldown period in seconds
       cooldownTimeLeft: 0, // Time left in cooldown
       cooldownInterval: null, // Interval for countdown
     }
