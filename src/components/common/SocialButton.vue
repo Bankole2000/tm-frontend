@@ -5,6 +5,7 @@
         <v-btn
           style="height: 40px; width: 40px; border-radius: 10px;"
           class="ml-4"
+          :class="$vuetify.breakpoint.smAndDown ? '': 'mt-16'"
           x-small
           v-bind="attrs" v-on="on"
           :href="`https://www.${platform}.com/${username}`"

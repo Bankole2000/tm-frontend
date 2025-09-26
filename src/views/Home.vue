@@ -50,7 +50,7 @@
           <p class="mb-2 text-center headline mt-n4" v-if="$vuetify.breakpoint.smAndDown">💿 You're the <strong>DJ</strong>! <br /> Request your favorite songs <i>live</i> 🎹</p>
           <div class="px-6">
             <SongRequestForm @requestSong="requestSong" />
-            <div class="d-flex align-center justify-end" :class="$vuetify.breakpoint.smAndDown ? 'mt-4': 'mt-16'">
+            <div class="d-flex align-center justify-end" :class="$vuetify.breakpoint.smAndDown ? 'mt-4': 'mt-16 pt-16'">
               <SocialButton v-for="link in socialLinks" :key="link.name" :platform="link.platform" :icon="link.icon" :username="link.username"/>
             </div>
             <RecentlyPlayedMobile v-if="$vuetify.breakpoint.smAndDown" />
