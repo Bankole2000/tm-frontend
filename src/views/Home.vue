@@ -50,7 +50,11 @@
           <p class="mb-2 text-center headline mt-n4" v-if="$vuetify.breakpoint.smAndDown">💿 You're the <strong>DJ</strong>! <br /> Request your favorite songs <i>live</i> 🎹</p>
           <div class="px-6">
             <SongRequestForm @requestSong="requestSong" />
+            <div class="d-flex align-center justify-end" :class="$vuetify.breakpoint.smAndDown ? 'mt-4': 'mt-16'">
+              <SocialButton v-for="link in socialLinks" :key="link.name" :platform="link.platform" :icon="link.icon" :username="link.username"/>
+            </div>
             <RecentlyPlayedMobile v-if="$vuetify.breakpoint.smAndDown" />
+
           </div>
         </v-card>
       </v-col>
@@ -62,12 +66,14 @@
 import SongRequestForm from "../components/forms/SongRequestForm.vue";
 import RecentlyPlayedMobile from '../components/RecentlyPlayedMobile.vue';
 import RecentlyPlayedDesktop from '../components/RecentlyPlayedDesktop.vue';
+import SocialButton from "../components/common/SocialButton.vue";
 // @ is an alias to /src
 
 export default {
   name: "Home",
   components: {
     SongRequestForm,
+    SocialButton,
     RecentlyPlayedMobile,
     RecentlyPlayedDesktop
   },
@@ -88,6 +94,32 @@ export default {
   methods: {
     requestSong(e){
       console.log({e, event: 'requestSong'})
+    }
+  },
+  data() {
+    return {
+      socialLinks: [
+        {
+          platform: 'instagram',
+          username: 'timikeys_',
+          icon: 'mdi-instagram'
+        },
+        {
+          platform: 'tiktok',
+          username: '@timikeys_',
+          icon: 'mdi-music'
+        },
+        {
+          platform: 'youtube',
+          username: '@timikeys_',
+          icon: 'mdi-youtube'
+        },
+        {
+          platform: 'linkedin',
+          username: 'in/timi-esan-21442b20b',
+          icon: 'mdi-linkedin'
+        },
+      ]
     }
   }
 };
